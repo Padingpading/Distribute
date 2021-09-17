@@ -1,8 +1,5 @@
 package com.padingpading.distribute.limit.redis;
 
-
-
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -10,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 限流注解
+ * @author libin
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
