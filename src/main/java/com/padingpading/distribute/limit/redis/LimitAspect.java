@@ -36,23 +36,22 @@ public class LimitAspect {
 
     }
 
-
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
+        System.out.println("test");
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String remoteAddr = request.getRemoteAddr();
         System.out.println(remoteAddr);
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
         Limit limitAnnotation = method.getAnnotation(Limit.class);
-        LimitType limitType = limitAnnotation.limitType();
-        String name = limitAnnotation.name();
         int limitPeriod = limitAnnotation.period();
         int limitCount = limitAnnotation.count();
         String key = remoteAddr;
         ImmutableList<String> keys = ImmutableList.of(StringUtils.join(limitAnnotation.prefix() + "_", key + "_" + request.getRequestedSessionId()));
+        System.out.println(keys.asList());
         String luaScript = buildLuaScript();
-        RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
+        RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript, Long.class);
         Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
         if (count != null && count.intValue() <= limitCount) {
             return point.proceed();
