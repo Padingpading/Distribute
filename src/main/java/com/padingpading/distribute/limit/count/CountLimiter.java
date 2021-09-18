@@ -4,8 +4,9 @@ package com.padingpading.distribute.limit.count;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
+
 /**
- * @author libin
+ * 计数法
  */
 public class CountLimiter {
     /**
