@@ -12,7 +12,7 @@
     <artifactId>Distribute</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Distribute</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Demo project for Sprin g Boot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -58,6 +58,11 @@
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.akucun.member.center</groupId>
+            <artifactId>member-center-limit</artifactId>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 
