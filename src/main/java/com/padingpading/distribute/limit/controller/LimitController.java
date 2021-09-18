@@ -1,5 +1,6 @@
 package com.padingpading.distribute.limit.controller;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.padingpading.distribute.limit.count.CountLimiter;
 import com.padingpading.distribute.limit.leakybucket.LeakyBucketLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class LimitController {
 
     @Autowired
     private LeakyBucketLimiter leakyBucketLimiter;
+
+    RateLimiter rateLimiter = RateLimiter.create(4);
+
 
     @GetMapping("/redis")
     public String testLimit(@RequestParam String param){
@@ -32,6 +36,15 @@ public class LimitController {
     @GetMapping("/leakyBucketLimiter")
     public String testLeakyBucketLimiter(@RequestParam String param){
         if(!leakyBucketLimiter.acquire(param)){
+            return "被限流了";
+        }
+
+        return "leakyBucketLimiter";
+    }
+
+    @GetMapping("/rateLimiter")
+    public String tesRateLimiter(@RequestParam String param){
+        if(!rateLimiter.acquire()){
             return "被限流了";
         }
 
