@@ -72,4 +72,14 @@ class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
         String str = new String(bytes, DEFAULT_CHARSET);
         return JSON.parseObject(str, clazz);
     }
+
+    public static void main(String[] args) {
+        outer:
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.println(j);
+                continue outer;
+            }
+        }
+    }
 }
